@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - 'main'
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+     - cron: '30 13-21/2 * * 1-5'
+
+# reddit access for golang tests
+# since I am an single dev
+# what I care about is regression
+# making sure my code still works on the reddit api
+
+env: 
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_STOCK_PRICES_WEBHOOK }}
+
+name: Send Updates
+jobs:
+  run:
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run job
+      run: go run main.go
+
+    - name: Commit files
+      id: commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add internal/*.csv
+        git commit -m "Updating csv"
+      continue-on-error: true
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      if: steps.commit.outputs.status == 'success'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
