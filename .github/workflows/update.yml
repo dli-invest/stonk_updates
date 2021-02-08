@@ -17,6 +17,7 @@ env:
 name: Send Updates
 jobs:
   run:
+    runs-on: ubuntu-latest
     steps:
     - name: Install Go
       uses: actions/setup-go@v2
