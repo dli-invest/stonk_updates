@@ -49,8 +49,8 @@ func main() {
 	// columns := [8]string{"Last Price", 
 	// "Change", "Volume", "Avg Vol (3 Month)", "Vol Ratio", 
 	// "Dollar", "Market", "Exchange"}
-	stock_data = append(stock_data, []string{"Symbol", "Last Price", 
-	"Change",  "Vol Ratio"})
+	// stock_data = append(stock_data, []string{"Symbol", "Last Price", 
+	// "Change",  "Vol Ratio"})
 	for iter.Next() {
 		q := iter.Quote()
 		volume_ratio := float64(q.RegularMarketVolume) / float64(q.AverageDailyVolume3Month)
