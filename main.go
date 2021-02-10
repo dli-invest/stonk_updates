@@ -10,6 +10,7 @@ import (
 	"os"
 	"bytes"
 	"strings"
+	"github.com/olekukonko/tablewriter"
 )
 
 func get_content() ([] string) {
@@ -63,18 +64,25 @@ func main() {
 
 		// fmt.Println(stock_data)
 	}
+	tableString := &strings.Builder{}
+	table := tablewriter.NewWriter(tableString)
+	table.SetHeader([]string{"Symbol", "Last Price", 
+	"Change",  "Vol Ratio"})
 	// send header
 	var send_str string = "```"
 	for i, s := range stock_data {
-		temp_str := strings.Join(s, "\t")
-		send_str = send_str + "\n" + temp_str
+		table.Append(s)
 		if i % 10 == 0 && i != 0 {
-			send_str = send_str + "```"
+			table.Render()
+			string_value := tableString.String()
+			send_str = send_str + string_value + "```"
 			resp, err := SendWebhook(send_str)
 			fmt.Println(resp)
 			fmt.Println(err)
 			// send to discord
 			send_str = "```"
+			tableString := &strings.Builder{}
+			table = tablewriter.NewWriter(tableString)
 		}
 	}
 	// result1 := strings.Join(stock_data, " ")
