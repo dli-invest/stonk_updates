@@ -67,7 +67,7 @@ func main() {
 	tableString := &strings.Builder{}
 	table := tablewriter.NewWriter(tableString)
 	table.SetHeader([]string{"Symbol", "Last Price", 
-	"Change",  "Vol Ratio"})
+		"Change",  "Vol Ratio"})
 	// send header
 	var send_str string = "```"
 	for i, s := range stock_data {
@@ -83,6 +83,8 @@ func main() {
 			send_str = "```"
 			tableString = &strings.Builder{}
 			table = tablewriter.NewWriter(tableString)
+			table.SetHeader([]string{"Symbol", "Last Price", 
+				"Change",  "Vol Ratio"})
 		}
 	}
 	// result1 := strings.Join(stock_data, " ")
