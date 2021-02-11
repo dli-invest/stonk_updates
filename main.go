@@ -83,6 +83,7 @@ func main() {
 			send_str = "```"
 			tableString := &strings.Builder{}
 			table = tablewriter.NewWriter(tableString)
+			tableString = &strings.Builder{}
 		}
 	}
 	// result1 := strings.Join(stock_data, " ")
