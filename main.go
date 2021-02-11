@@ -81,9 +81,8 @@ func main() {
 			fmt.Println(err)
 			// send to discord
 			send_str = "```"
-			tableString := &strings.Builder{}
-			table = tablewriter.NewWriter(tableString)
 			tableString = &strings.Builder{}
+			table = tablewriter.NewWriter(tableString)
 		}
 	}
 	// result1 := strings.Join(stock_data, " ")
