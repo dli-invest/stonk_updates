@@ -72,7 +72,7 @@ func main() {
 	var send_str string = "```"
 	for i, s := range stock_data {
 		table.Append(s)
-		if i % 10 == 0 && i != 0 {
+		if i % 10 == 0 && i != 0 || i == len(stock_data) {
 			table.Render()
 			string_value := tableString.String()
 			send_str = send_str + string_value + "```"
@@ -86,22 +86,6 @@ func main() {
 			table.SetHeader([]string{"Symbol", "Last Price", 
 				"Change",  "Vol Ratio"})
 		}
-	}
-	// handle cases where the length of stock_data is not divisible by 10
-	// send extra discord data
-	if len(stock_data) % 10 != 0 {
-		table.Render()
-		string_value := tableString.String()
-		send_str = send_str + string_value + "```"
-		resp, err := SendWebhook(send_str)
-		fmt.Println(resp)
-		fmt.Println(err)
-		// send to discord
-		send_str = "```"
-		tableString = &strings.Builder{}
-		table = tablewriter.NewWriter(tableString)
-		table.SetHeader([]string{"Symbol", "Last Price", 
-			"Change",  "Vol Ratio"})
 	}
 	// result1 := strings.Join(stock_data, " ")
 }
