@@ -72,7 +72,7 @@ func main() {
 	var send_str string = "```"
 	for i, s := range stock_data {
 		table.Append(s)
-		if i % 10 == 0 && i != 0 || i == len(stock_data) {
+		if (i % 10 == 0 && i != 0) || i == len(stock_data) - 1 {
 			table.Render()
 			string_value := tableString.String()
 			send_str = send_str + string_value + "```"
