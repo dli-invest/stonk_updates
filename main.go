@@ -10,6 +10,7 @@ import (
 	"os"
 	"bytes"
 	"strings"
+	"strconv"
 	"github.com/olekukonko/tablewriter"
 )
 
@@ -72,7 +73,7 @@ func main() {
 	var send_str string = "```"
 	for i, s := range stock_data {
 		table.Append(s)
-		log.Printf(i)
+		log.Printf( strconv.Itoa(i))
 		if (i % 10 == 0 && i != 0) || i == len(stock_data) - 1 || i == len(stock_data) {
 			table.Render()
 			string_value := tableString.String()
